@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.venv
+venv/
+env/
+output/
+workspace/
+*.log
+chroma_data/
+n8n_data/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

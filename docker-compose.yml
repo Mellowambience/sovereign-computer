@@ -1,0 +1,37 @@
+# Sovereign Computer — Core Services
+# Run: docker compose up -d
+
+services:
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: sovereign-searxng
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config/searxng:/etc/searxng
+    restart: unless-stopped
+
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: sovereign-chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    restart: unless-stopped
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: sovereign-n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    environment:
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-changeme}
+    restart: unless-stopped
+
+volumes:
+  chroma_data:
+  n8n_data:

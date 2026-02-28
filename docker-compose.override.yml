@@ -1,0 +1,20 @@
+# Sovereign Computer — Secure Sandbox Layer
+# One ephemeral, air-gapped container per agent task
+
+services:
+  task-sandbox:
+    image: python:3.12-slim
+    container_name: sovereign-sandbox
+    volumes:
+      - ./workspace:/workspace
+    working_dir: /workspace
+    network_mode: none
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    profiles:
+      - sandbox
